@@ -9,24 +9,14 @@
 
   <script>
     const cargaDatos = () => {
-      fetch("http://localhost:3000/alumnos/")
+      fetch("http://localhost:3000/alumno/")
         .then((d) => d.json())
         .then((objetoDevuelto) => {
-          // muestraDatos(objetoDevuelto);
-         console.log(objetoDevuelto);
+          muestraDatos(objetoDevuelto);
         })
 
         .catch((error) => console.error("Error" + error));
     };
-
-   const anadir = () => 
-   {
-
-    let alumno = {
-      
-
-    }
-   }
 
     window.onload = cargaDatos;
   </script>
