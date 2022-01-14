@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CRUD alumnos_daw2</title>
+  </head>
+
+  <script>
+    const cargaDatos = () => {
+      fetch("http://localhost:3000/alumnos/")
+        .then((d) => d.json())
+        .then((objetoDevuelto) => {
+          // muestraDatos(objetoDevuelto);
+         console.log(objetoDevuelto);
+        })
+
+        .catch((error) => console.error("Error" + error));
+    };
+
+   const anadir = () => 
+   {
+
+    let alumno = {
+      
+    }
+   }
+
+    window.onload = cargaDatos;
+  </script>
+  <body>
+    <h1>Gestion de Alumnos</h1>
+    <div id="tabla"></div>
+  </body>
+</html>
