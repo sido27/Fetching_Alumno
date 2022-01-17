@@ -5,33 +5,96 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CRUD alumnos_daw2</title>
+
+    <style>
+      table,
+      tr,
+      th,
+      td {
+        border: 1px black solid;
+        text-align: center;
+      }
+
+      label { display: inline-block; width: 90px; text-align: right; }
+    </style>
   </head>
+  <body>
+    <h1>Gestion de Alumnos</h1>
+    <table id="tabla"></table>
+    
+    <button id="add">Anadir</button>
+    <div id="form" >
+     
+      <label for="">nombre</label>
+      <input type="text" /> <br>
+      <label>apellidos</label> <input type="text" /><br>
+      <label>nota</label>
+      <input type="number" /> <br>
+      <button id="grabar">grabar</button>
+    </div>
+  </body>
 
   <script>
     const cargaDatos = () => {
       fetch("http://localhost:3000/alumnos/")
         .then((d) => d.json())
         .then((objetoDevuelto) => {
-          // muestraDatos(objetoDevuelto);
-         console.log(objetoDevuelto);
+          let arr = ["id", "nom", "app", "nota", "acciones"];
+          tableCreate(objetoDevuelto.data.length, arr);
+
+          let first = document.querySelectorAll("tr td:nth-child(1)");
+          let second = document.querySelectorAll("tr td:nth-child(2)");
+          let third = document.querySelectorAll("tr td:nth-child(3)");
+          let fourth = document.querySelectorAll("tr td:nth-child(4)");
+          let fifth = document.querySelectorAll("tr td:nth-child(5)");
+
+          // console.log(objetoDevuelto.data);
+
+          for (i in first) {
+            if (i <= objetoDevuelto.data.length) {
+              first[i].innerHTML = objetoDevuelto.data[i].id;
+
+              second[i].innerHTML = objetoDevuelto.data[i].nombre;
+
+              third[i].innerHTML = objetoDevuelto.data[i].apellidos;
+
+              fourth[i].innerHTML = objetoDevuelto.data[i].nota;
+              //To align buttons in a cell table we basically create a div with attribute as below ↓
+              // then we put desired buttons inside
+              fifth[i].innerHTML = ` <div style="display: table-cell;">
+        <button>Borrar</button>
+        <button>Modificar</button>
+    </div>
+   `;
+            }
+          }
         })
 
         .catch((error) => console.error("Error" + error));
     };
 
-   const anadir = () => 
-   {
+    function tableCreate(row, arr) {
+      let tbl = document.querySelector("#tabla");
 
-    let alumno = {
-      
-
+      tbl.innerHTML = "";
+      let theads = tbl.insertRow(0);
+      let x = 0;
+      for (e in arr) {
+        th = document.createElement("th");
+        th.innerHTML = arr[e];
+        theads.appendChild(th);
+      }
+      for (let i = 0; i < row; i++) {
+        let tr = tbl.insertRow();
+        for (let j = 0; j < arr.length; j++) {
+          let td = tr.insertCell();
+          // td.id = "id" + x;
+          x++;
+          //  td.appendChild(document.createTextNode(`${i},${j}`));
+        }
+      }
     }
-   }
 
     window.onload = cargaDatos;
   </script>
-  <body>
-    <h1>Gestion de Alumnos</h1>
-    <div id="tabla"></div>
-  </body>
 </html>
